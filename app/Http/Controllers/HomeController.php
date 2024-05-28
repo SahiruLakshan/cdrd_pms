@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -37,7 +38,9 @@ class HomeController extends Controller
     }
 
     public function timeplan($no){
-        return view('User.timeplan');
+        $project = Project::where('no',$no)->first();
+        $tasks = Task::where('no',$no)->get();
+        return view('User.timeplan',compact('tasks','project'));
     }
 
     public function progress(){

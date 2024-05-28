@@ -1,10 +1,10 @@
 @extends('userfront')
 @section('content')
 <div class="text-center mt-3">
-    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Time Plan of Project 80 : RC 3 (2022)</h4>
+    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Time Plan of Project No {{$project->no}} : RC {{$project->rc}}</h4>
 </div>
 <div class="text-center mt-3">
-    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Cross Site (XSS) Scripting & Prevention System</h4>
+    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">{{$project->pname}}</h4>
 </div>
 
 <table class="table mt-3" style="border: 2px solid white; width: 1000px; margin: auto;">
@@ -15,10 +15,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:500px;white-space: normal;text-align:justify">Feasibility Study and Literature Survey</td>
-            <td style="color: rgb(208, 233, 16);font-weight: 700;width:500px">25/05/2023 ---------------------- 25/06/2023</td>
-        </tr>
+        @foreach ($tasks as $task)
+            <tr>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:500px;white-space: normal;text-align:justify">{{$task->task}}</td>
+                <td style="color: rgb(208, 233, 16);font-weight: 700;width:500px">{{$task->start_month}} ---------------------- {{$task->end_month}}</td>
+            </tr>
+        @endforeach
     </tbody>
 </table>
 
