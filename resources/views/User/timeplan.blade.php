@@ -26,6 +26,6 @@
 
 <div class="mt-3 text-center">
     <a href="/financial/{{$project->no}}" style="color: white;padding-right:590px"><i><- Back to Financial Statement Page</i></a>
-    <a href="/progress" class="btn btn-danger"><i>Project Progress</i></a>
+    <a href="/progress/{{$project->no}}" class="btn btn-danger"><i>Project Progress</i></a>
 </div>
 @endsection

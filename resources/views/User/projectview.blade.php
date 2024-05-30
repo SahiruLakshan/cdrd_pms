@@ -51,7 +51,7 @@
             <th scope="col"></th>
         </tr>
     </thead>
-    <tbody style="background-color: yellow;">
+    <tbody>
         @php
             $x = 0; 
         @endphp
@@ -60,23 +60,39 @@
                 $x++;
                 $now = \Carbon\Carbon::now();
                 $remaining_time = $remaining_time_list[$project->id];
+                $rowColor = '#d6658b';
+                $status = 'Not yet start';
+                $remaining_time_text = '';
+    
+                if ($project->end_date <= $now) {
+                    $rowColor = '#81a4db';
+                    $status = 'Completed';
+                    $remaining_time_text = 
+                         ' 0 years, ' . 
+                         ' 0 months, ' . 
+                         ' 0 days';
+                } elseif ($project->start_date <= $now) {
+                    $rowColor = 'yellow';
+                    $status = 'Ongoing';
+                    $remaining_time_text = 
+                        $remaining_time['years'] . ' years, ' . 
+                        $remaining_time['months'] . ' months, ' . 
+                        $remaining_time['days'] . ' days';
+                } else {
+                    $remaining_time_text = 
+                        $remaining_time['years'] . ' years, ' . 
+                        $remaining_time['months'] . ' months, ' . 
+                        $remaining_time['days'] . ' days';
+                }
             @endphp
-            <tr>
-                <td>
-                    {{ $x }}
-                </td>
+            <tr style="background-color: {{ $rowColor }};">
+                <td>{{ $x }}</td>
                 <td>{{ $project->no }}</td>
                 <td>{{ $project->rc }}</td>
                 <td style="max-width: 500px;">{{ $project->pname }}</td>
-                @if($project->start_date <= $now)
-                    <td>Ongoing</td>
-                @else
-                    <td>Not yet start</td>
-                @endif
+                <td>{{ $status }}</td>
                 <td style="max-width: 250px;">
-                    {{ $remaining_time['years'] }} years, 
-                    {{ $remaining_time['months'] }} months, 
-                    {{ $remaining_time['days'] }} days
+                    {{ $remaining_time_text }}
                 </td>
                 <td style="max-width: 500px;">
                     <a href="/financial/{{$project->no}}" class="btn btn-danger btn-sm">Financial <br>Statement</a>
