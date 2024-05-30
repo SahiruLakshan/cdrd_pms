@@ -43,8 +43,12 @@ class HomeController extends Controller
         return view('User.timeplan',compact('tasks','project'));
     }
 
-    public function progress(){
-        return view('User.progress');
+    public function progress($no){
+        $project = Project::where('no',$no)->first();
+        $tasks = Task::where('no',$no)->get();
+        $tot_weight = Task::where('no',$no)->sum('weight');
+        $tot_final = Task::where('no',$no)->sum('final_percentage');
+        return view('User.progress',compact('project','tasks','tot_weight','tot_final'));
     }
 
     public function timeline(){

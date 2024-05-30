@@ -97,7 +97,7 @@
         </form>
     </div>
     <div class="col">
-        <a href="/timeplan" class="btn btn-success" style="color: black"><i>Time Plan</i></a>
+        <a href="/timeplan/{{$project->no}}" class="btn btn-success" style="color: black"><i>Time Plan</i></a>
     </div>
 </div>
 

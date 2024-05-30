@@ -1,10 +1,10 @@
 @extends('userfront')
 @section('content')
 <div class="text-center mt-3">
-    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Project Progress of Project 80 : RC 3 (2022)</h4>
+    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Project Progress of Project {{$project->no}} : RC {{$project->rc}}</h4>
 </div>
 <div class="text-center mt-3">
-    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Cross Site (XSS) Scripting & Prevention System</h4>
+    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">{{$project->pname}}</h4>
 </div>
 <table class="table mt-3" style="border: 2px solid white; width:1500px;margin: auto;">
     <thead>
@@ -18,20 +18,30 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:50px;white-space: normal;text-align:center">1</td>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:500px;white-space: normal;text-align:justify">Feasibility Study and Literature Survey</td>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;;white-space: normal;text-align:center">5%</td>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;;white-space: normal;text-align:center;background-color:rgba(255, 0, 0, 0.995)">90%</td>
-            <td style="color: rgb(0, 0, 0); border-right: 2px solid white;font-weight: 700;;white-space: normal;text-align:center;background-color:yellow">98%</td>
-            <td style="color: rgb(255, 255, 255);font-weight: 700;white-space: normal;text-align:center">4%</td>
-        </tr>
+        @php
+            $x = 0;
+        @endphp
+        @foreach ($tasks as $task)
+            @php
+                $x++;
+            @endphp
+            <tr>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:50px;white-space: normal;text-align:center">{{$x}}</td>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:500px;white-space: normal;text-align:justify">{{$task->task}}</td>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;;white-space: normal;text-align:center">{{$task->weight}}%</td>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;;white-space: normal;text-align:center;background-color:rgba(255, 0, 0, 0.995)">{{$task->completion_lastweek}}%</td>
+                <td style="color: rgb(0, 0, 0); border-right: 2px solid white;font-weight: 700;;white-space: normal;text-align:center;background-color:yellow">{{$task->completion_presentweek}}%</td>
+                <td style="color: rgb(255, 255, 255);font-weight: 700;white-space: normal;text-align:center">{{$task->final_percentage}}%</td>
+            </tr>
+        @endforeach
+        
         <tr>
             <td colspan="2" style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>Total Percentage:</i></td>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>5%</i></td>
-            <td colspan="2" style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>Total Progress Percentage:</i></td>
-            <td style="color: rgb(255, 255, 255);font-weight: 700;white-space: normal;text-align:center"><i>4%</i></td>
+            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>{{$tot_weight}}%</i></td>
+            <td colspan="2" style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>Total Progress Percentage:<br>Up to {{ \Carbon\Carbon::now()->format('Y-m-d') }}</i></td>
+            <td style="color: rgb(255, 255, 255);font-weight: 700;white-space: normal;text-align:center"><i>{{$tot_final}}%</i></td>
         </tr>
+        
         {{-- <tr>
             <td colspan="5" style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>Progress Percentage Up to:15/05/2024</i></td>
             <td style="color: rgb(255, 255, 255);font-weight: 700;white-space: normal;text-align:center"><i>4%</i></td>

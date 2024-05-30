@@ -31,7 +31,7 @@ Route::get('/', [HomeController::class, 'home']);
 Route::get('/projectview', [HomeController::class, 'projects']);
 Route::get('/financial/{no}', [HomeController::class, 'financial']);
 Route::get('/timeplan/{no}', [HomeController::class, 'timeplan']);
-Route::get('/progress', [HomeController::class, 'progress']);
+Route::get('/progress/{no}', [HomeController::class, 'progress']);
 Route::get('/timeline', [HomeController::class, 'timeline']);
 Route::get('/summary', [HomeController::class, 'summary']);
 

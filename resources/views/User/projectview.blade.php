@@ -81,7 +81,7 @@
                 <td style="max-width: 500px;">
                     <a href="/financial/{{$project->no}}" class="btn btn-danger btn-sm">Financial <br>Statement</a>
                     <a href="/timeplan/{{$project->no}}" class="btn btn-success btn-sm">Time <br>Plan</a>
-                    <a class="btn btn-secondary btn-sm">Project <br>Progress</a>
+                    <a href="/progress/{{$project->no}}" class="btn btn-secondary btn-sm">Project <br>Progress</a>
                 </td>
             </tr>
         @endforeach
