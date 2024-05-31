@@ -55,8 +55,15 @@ class HomeController extends Controller
         return view('User.timeline');
     }
 
-    public function summary(){
-        return view('User.summary');
+    public function summary($wing){
+        $now = Carbon::now();
+
+        $projects = Project::where('wing', $wing)
+                            ->where('start_date', '<=', $now)
+                            ->where('end_date', '>=', $now)
+                            ->get();
+
+        return view('User.summary', compact('projects'));
     }
 
 }
