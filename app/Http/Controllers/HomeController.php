@@ -51,19 +51,36 @@ class HomeController extends Controller
         return view('User.progress',compact('project','tasks','tot_weight','tot_final'));
     }
 
-    public function timeline(){
-        return view('User.timeline');
+    public function timeline($wing){
+        $wing_name = $wing;
+        $projects = Project::where('wing', $wing)->orderBy('end_date', 'asc')->get();
+        return view('User.timeline',compact('projects','wing_name'));
     }
 
-    public function summary($wing){
-        $now = Carbon::now();
-
-        $projects = Project::where('wing', $wing)
-                            ->where('start_date', '<=', $now)
-                            ->where('end_date', '>=', $now)
-                            ->get();
-
-        return view('User.summary', compact('projects'));
+    public function summary($wing) {
+        $now = \Carbon\Carbon::now();
+        $wing_name = $wing;
+        $projects = Project::where('wing', $wing)->orderBy('end_date', 'asc')->get();
+    
+        foreach ($projects as $project) {
+            // Calculate the sum of final_percentage for tasks related to the project
+            $project->tasks_sum = Task::where('no', $project->no)->sum('final_percentage');
+            
+            // Calculate completed and remaining months
+            $startDate = \Carbon\Carbon::parse($project->start_date);
+            $endDate = \Carbon\Carbon::parse($project->end_date);
+            $totalMonths = $startDate->diffInMonths($endDate) + 1; // +1 to include the end month
+            $completedMonths = $startDate->diffInMonths($now) + 1; // +1 to include the current month
+            $remainingMonths = max(0, $totalMonths - $completedMonths);
+    
+            // Add these calculations to the project object
+            $project->total_months = $totalMonths;
+            $project->completed_months = max(0, $completedMonths);
+            $project->remaining_months = $remainingMonths;
+        }
+    
+        return view('User.summary', compact('projects', 'wing_name'));
     }
+    
 
 }

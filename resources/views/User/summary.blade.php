@@ -1,7 +1,56 @@
 @extends('userfront')
+<style>
+    /* Inline CSS to style the progress bar */progress {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    
+    progress::-webkit-progress-bar {
+      background-color: #eee;
+    }
+    
+    progress::-webkit-progress-value {
+      background-color: #4caf50; /* Change this color to your desired color */
+    }
+    
+    progress::-moz-progress-bar {
+      background-color: #4caf50; /* Change this color to your desired color */
+    }
+    
+    progress[value]::-ms-fill {
+      background-color: #4caf50; /* Change this color to your desired color */
+    }
+
+    .progress-container {
+      position: relative;
+      width: 300px; /* Same as the width of the progress bar */
+      height: 30px; /* Adjust height as needed */
+    }
+    
+    .progress-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgb(0, 0, 0); /* Text color */
+      font-weight: bold;
+      z-index: 1;
+      padding-left: 250px
+
+    }
+
+    progress {
+      height: 30px; /* Adjust height to match the progress container */
+    }
+</style>
 @section('content')
 <div class="text-center mt-3">
-    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">IT & GIS Wing</h4>
+    <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">{{$wing_name}}</h4>
 </div>
 <div class="text-center mt-3">
     <h4 style="font-family: inter;color:white;text-transform: uppercase;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Overall Summary of Ongoing Projects</h4>
@@ -16,19 +65,51 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:50px;white-space: normal;text-align:justify">1</td>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:300px;white-space: normal;text-align:justify">Project 80 RC3 (2022)</td>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:1000px;white-space: normal;text-align:justify">Cross Site (XSS) Scripting & Prevention System</td>
-            <td style="color: rgb(208, 233, 16);font-weight: 700;width:800px">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </td>
-        </tr>
+        @php
+            $x = 0;
+        @endphp
+
+        @foreach ($projects as $project)
+            @php
+                $x++
+            @endphp
+            <tr>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:100px;white-space: normal;text-align:justify">{{$x}}</td>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:100px;white-space: normal;text-align:justify">Project {{$project->no}} <br>RC{{$project->rc}} <br>({{ \Carbon\Carbon::parse($project->start_date)->format('Y') }})</td>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:1200px;white-space: normal;text-align:justify">{{$project->pname}}</td>
+                <td style="width:800px">  
+                    <div class="progress-container">
+                        <span style="color:white">Work Progress: </span>&nbsp;&nbsp;
+                        <progress value="{{ $project->tasks_sum }}" max="100"></progress>
+                        <span class="progress-text" style="font-size: 12px">{{ $project->tasks_sum }}% Completed</span>
+                    </div><br>
+
+
+                    <div class="progress-container">
+                        <span style="color:white">Time Line: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <progress value="{{ round($project->completed_months) }}" max="{{ round($project->total_months) }}"></progress>
+                        <span class="progress-text" style="font-size: 12px">{{ round($project->completed_months) }} Months Completed</span>
+                        <div class="row">
+                          <div class="col">
+                          </div>
+                          
+                          <div class="col mt-1">
+                            <div style="width: 10px; height: 10px; background-color: white;margin-left:100px "></div>
+                          </div>
+                          <div class="col">
+                            <span style="color:white;font-size: 12px">{{ round($project->remaining_months) }} Remaining Months</span>
+                          </div>
+                        </div>
+                    </div><br><br>
+
+                    <div class="progress-container">
+                        <span style="color:white">Financial Status:</span>&nbsp;
+                        <progress value="{{ $project->tasks_sum }}" max="100"></progress>
+                        <span class="progress-text" style="font-size: 12px">{{ $project->tasks_sum }}%</span>
+                    </div>
+                </td>
+            </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection

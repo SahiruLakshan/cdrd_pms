@@ -32,8 +32,8 @@ Route::get('/projectview', [HomeController::class, 'projects']);
 Route::get('/financial/{no}', [HomeController::class, 'financial']);
 Route::get('/timeplan/{no}', [HomeController::class, 'timeplan']);
 Route::get('/progress/{no}', [HomeController::class, 'progress']);
-Route::get('/timeline', [HomeController::class, 'timeline']);
-Route::get('/summary', [HomeController::class, 'summary']);
+Route::get('/timeline/{wing}', [HomeController::class, 'timeline']);
+Route::get('/summary/{wing}', [HomeController::class, 'summary']);
 
 
 // Route::get('/dashboard', function () {
