@@ -77,6 +77,8 @@ class HomeController extends Controller
             $project->total_months = $totalMonths;
             $project->completed_months = max(0, $completedMonths);
             $project->remaining_months = $remainingMonths;
+
+            // $project->remaining_cost = $project->pexpenditure;
         }
     
         return view('User.summary', compact('projects', 'wing_name'));

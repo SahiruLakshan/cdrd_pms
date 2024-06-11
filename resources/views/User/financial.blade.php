@@ -27,7 +27,7 @@
             <td style="color: white; font-size: 20px; font-weight: 700;width:500px">{{$project->end_date}}</td>
         </tr>
         <tr>
-            <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Total Estimated Cose</td>
+            <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Total Estimated Cost</td>
             <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->ecost}}</td>
         </tr>
         <tr>

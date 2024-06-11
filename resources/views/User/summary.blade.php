@@ -71,12 +71,19 @@
 
         @foreach ($projects as $project)
             @php
-                $x++
+                $x++;
+                $cost = $project->ecost/1000000;
             @endphp
             <tr>
                 <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:100px;white-space: normal;text-align:justify">{{$x}}</td>
                 <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:100px;white-space: normal;text-align:justify">Project {{$project->no}} <br>RC{{$project->rc}} <br>({{ \Carbon\Carbon::parse($project->start_date)->format('Y') }})</td>
-                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:1200px;white-space: normal;text-align:justify">{{$project->pname}}</td>
+                <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:1200px;white-space: normal;text-align:justify">
+                  {{$project->pname}}<br><br>
+                  <span style="font-size: 13px">Start Date: {{$project->start_date}}</span><br>
+                  <span style="font-size: 13px">End Date: {{$project->end_date}}</span><br>
+                  <span style="font-size: 13px">Project Time: {{ round($project->total_months) }} Months</span><br><br>
+                  <span style="font-size: 13px">Total Project Cost: {{$cost}} Mn</span>
+                </td>
                 <td style="width:800px">  
                     <div class="progress-container">
                         <span style="color:white">Work Progress: </span>&nbsp;&nbsp;
@@ -97,15 +104,18 @@
                             <div style="width: 10px; height: 10px; background-color: white;margin-left:100px "></div>
                           </div>
                           <div class="col">
-                            <span style="color:white;font-size: 12px">{{ round($project->remaining_months) }} Remaining Months</span>
+                            <span style="color:white;font-size: 12px">{{ round($project->remaining_months) }}  Months Remaining</span>
                           </div>
                         </div>
                     </div><br><br>
 
+                    @php
+                      $percentage = ($project->remaining_total  / $project->ecost )*100
+                    @endphp
                     <div class="progress-container">
                         <span style="color:white">Financial Status:</span>&nbsp;
-                        <progress value="{{ $project->tasks_sum }}" max="100"></progress>
-                        <span class="progress-text" style="font-size: 12px">{{ $project->tasks_sum }}%</span>
+                        <progress value="{{ $project->remaining_total }}" max="{{$project->ecost}}"></progress>
+                        <span class="progress-text" style="font-size: 12px">{{ $percentage }}% Expenditure</span>
                     </div>
                 </td>
             </tr>
