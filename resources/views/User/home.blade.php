@@ -1,4 +1,12 @@
 @extends('userfront')
+<style>
+    .clock-date {
+        font-size: 20px;
+        color: white;
+        text-transform: capitalize;
+        font-family:inter;
+    }
+</style>
 @section('content')
 <div class="text-center mt-4">
     <img src="assets/img/logo.png" height="250px" alt="">
@@ -8,10 +16,14 @@
 </div>
 <div class="text-center">
     <h4 style="font-family: inter;color:white;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">MINISTRY OF DEFENCE</h4>
-</div><br>
+</div>
+
 <div class="text-center mt-3">
     <h1 style="font-family:Verdana, Geneva, Tahoma, sans-serif;color:#CEFFB8;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">PROJECT MANAGEMENT SYSTEM</h1>
 </div><br>
+<div class="text-center">
+    <div class="clock-date" id="clock-date"></div>
+</div>
 <div class="text-center mt-3">
     <h6 style="font-family:inter;color:white">SELECT THE WING</h6>
 </div>
@@ -38,5 +50,32 @@
     </div>
 </form>
 
+<script>
+    function getOrdinalSuffix(day) {
+            if (day > 3 && day < 21) return 'th';
+            switch (day % 10) {
+                case 1: return 'st';
+                case 2: return 'nd';
+                case 3: return 'rd';
+                default: return 'th';
+            }
+        }
 
+        function updateClock() {
+            const now = new Date();
+
+            const day = now.getDate();
+            const month = now.toLocaleString('default', { month: 'long' });
+            const year = now.getFullYear();
+
+            const date = `${day}${getOrdinalSuffix(day)} of ${month} ${year}`;
+            const time = now.toLocaleTimeString();
+
+            document.getElementById('clock-date').innerText = date;
+            document.getElementById('clock-time').innerText = time;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); //
+</script>
 @endsection

@@ -1,4 +1,7 @@
 @extends('userfront')
+@php
+  use Carbon\Carbon;
+@endphp
 <style>
     /* Inline CSS to style the progress bar */progress {
       width: 100%;
@@ -73,6 +76,7 @@
             @php
                 $x++;
                 $cost = $project->ecost/1000000;
+             
             @endphp
             <tr>
                 <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:100px;white-space: normal;text-align:justify">{{$x}}</td>
@@ -95,7 +99,13 @@
                     <div class="progress-container">
                         <span style="color:white">Time Line: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <progress value="{{ round($project->completed_months) }}" max="{{ round($project->total_months) }}"></progress>
-                        <span class="progress-text" style="font-size: 12px">{{ round($project->completed_months) }} Months Completed</span>
+
+                        @if (Carbon::parse($project->end_date)->lessThan(Carbon::today()))
+                            <span class="progress-text" style="font-size: 12px">Time Completed</span>
+                        @else
+                            <span class="progress-text" style="font-size: 12px">{{ round($project->completed_months) }} Months Completed</span>
+                        @endif
+                        
                         <div class="row">
                           <div class="col">
                           </div>
@@ -122,4 +132,9 @@
         @endforeach
     </tbody>
 </table>
+
+<div class="mt-3 text-center">
+  <a href="/timeline/{{$project->wing}}" style="color: white;padding-right:960px"><i><- Back to TimeLine</i></a>
+  <a href="/" class="btn btn-info"><i>Go to Home</i></a>
+</div>
 @endsection

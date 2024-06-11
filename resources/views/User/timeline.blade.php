@@ -33,8 +33,8 @@
     </tbody>
 </table>
 
-<div class="mt-3 text-center">
-    <a href="/progress" style="color: white;padding-right:960px"><i><- Back to Progresss Page</i></a>
-    <a href="/summary/{{$wing_name}}" class="btn btn-info"><i>Overall Summary</i></a>
+<div class="mt-3" style="padding-left: 1250px">
+    {{-- <a href="/progress" style="color: white;padding-right:960px"><i><- Back to Progresss Page</i></a> --}}
+    <a href="/summary/{{$wing_name}}" class="btn btn-info" ><i>Overall Summary</i></a>
 </div>
 @endsection

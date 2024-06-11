@@ -171,6 +171,7 @@
            <table class="table align-items-center justify-content-center mb-0">
             <thead>
               <tr>
+                <th>#</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tasks</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Start Month</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">End Month</th>
@@ -182,7 +183,13 @@
               </tr>
             </thead>
                     <tbody>
+                    @php
+                        $x = 0;
+                    @endphp
                     @foreach ($task as $task)
+                    @php
+                        $x++;
+                    @endphp
                     <form action="{{ url('update-task',$task?->id) }}" method="post">
                         @csrf
                         @method('PUT')
@@ -193,7 +200,16 @@
                                 <td>
                                     <div class="d-flex px-2">
                                         <div class="my-auto">
-                                            <h6 class="mb-0 text-sm" style="max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                            <h6 class="mb-0 text-sm" style="max-width: 10px; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                                {{$x}}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex px-2">
+                                        <div class="my-auto">
+                                            <h6 class="mb-0" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: normal;font-size:13px">
                                                 {{$task->task}}
                                             </h6>
                                         </div>
@@ -214,21 +230,21 @@
                                     </div>
                                 </td>
                                 <td style="text-align: center">
-                                    <div class="col-6">
+                                    <div class="col-8">
                                         <div class="mb-2">
                                             <input type="number" name="weight" class="form-control" value="{{$task->weight}}" placeholder="Present Week" value=0>
                                         </div>
                                     </div>
                                 </td>
                                 <td style="text-align: center">
-                                    <div class="col-6">
+                                    <div class="col-8">
                                         <div class="mb-2">
                                             <input type="number" name="completion_lastweek" value="{{$task->completion_lastweek}}" class="form-control" placeholder="Last Week" value=0>
                                         </div>
                                     </div>
                                 </td>
                                 <td style="text-align: center">
-                                    <div class="col-6">
+                                    <div class="col-8">
                                         <div class="mb-2">
                                             <input type="number" name="completion_presentweek" class="form-control" value="{{$task->completion_presentweek}}" placeholder="Present Week" value=0>
                                         </div>
@@ -240,7 +256,7 @@
                                 @php
                                     $total = $total + $task->final_percentage
                                 @endphp
-                                <td><button type="submit" class="btn btn-sm bg-gradient-dark w-100 my-4 mb-2">Update</button></td>
+                                <td><button type="submit" class="btn btn-sm bg-gradient-dark w-100 my-4 mb-2">Update<br>Task {{$x}}</button></td>
                             </tr>
                     </form>
                     @endforeach
