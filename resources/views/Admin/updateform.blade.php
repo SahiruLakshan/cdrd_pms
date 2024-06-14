@@ -1,5 +1,72 @@
 @extends('adminfront')
+
 @section('content')
+<style>
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 350px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .calculator {
+        width: 100%;
+    }
+
+    .display {
+        width: 100%;
+        height: 40px;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    .button {
+        width: 50px;
+        height: 50px;
+        float: left;
+        margin: 5px;
+        text-align: center;
+        line-height: 50px;
+        background-color: #eee;
+        cursor: pointer;
+    }
+
+    .button.clear {
+        background-color: #f00;
+        color: #fff;
+    }
+</style>
 {{-- <form role="form">
     <label>Email</label>
     <div class="mb-3">
@@ -19,7 +86,8 @@
   </form> --}}
   @foreach ($project as $project) 
   <main class="main-content mt-0">
-    <h4>Update Project No {{$project->no}} - {{$project->pname}}</h4><hr style="height:2px;background-color:black">
+    <h4>Update Project No {{$project->no}} - {{$project->pname}} </h4><hr style="height:2px;background-color:black">
+    <button class="btn border-t-neutral-900" id="openCalculatorBtn">Calculator</button>
     <form id="updateForms" action="{{ url('update-project',$project?->id) }}" method="post">
         @csrf
         @method('PUT')
@@ -75,14 +143,20 @@
            </div> --}}
 
            <div class="row">
-               <div class="col-5">
+               <div class="col-4">
                    <div class="mb-2">
                        <label>Start Date:</label><input type="date" value="{{$project->start_date}}" name="start_date" class="form-control" placeholder="Start Date">
                    </div>
                </div>
-               <div class="col-6">
+               <div class="col-4">
                    <div class="mb-2">
                        <label>End Date:</label><input type="date" value="{{$project->end_date}}" name="end_date" class="form-control" placeholder="End Date">
+                   </div>
+               </div>
+               <div class="col-3">
+                   <div class="mb-2">
+                       <label>Extended Time (Months):</label>
+                       <input type="number" value="{{ $project->ext_time ?? 0 }}" name="ext_time" class="form-control" placeholder="Total Estimated Cost">
                    </div>
                </div>
            </div>
@@ -123,7 +197,7 @@
                    </div>
                </div>
 
-               <h5>Remaining Funds(Total): Rs.{{$project->remaining_total}} | Remaining Funds(2024): Rs.{{$project->remaining_current_year}}</h5>
+               <h5>Remaining Funds(Total): Rs.{{$project->total_re_funds}} | Remaining Funds(2024): Rs.{{$project->current_re_funds}}</h5>
            </div><br>
            <div class="row">
                <div class="col-5">
@@ -263,6 +337,7 @@
                     <tr>
                         <td style="text-align:center" colspan="6"><b>Total Completion Percentage:</b></td>
                         <td style="text-align: center">{{$total}} %</td>
+                        <th> 
                     </tr>
                     <tr>
                         <td style="text-align:center;color:red" colspan="6"><b>Percentage remaining to complete:</b></td>
@@ -275,10 +350,84 @@
             </table>
         </section>
   </main>
+  <div id="calculatorModal" class="modal">
+    
+    <div class="modal-content"> 
+        <span class="close">&times;</span>
+        <h3>Funds Calculator</h3>
+        <div class="calculator">
+            <input type="text" class="display" id="display" readonly>
+            <div class="button" onclick="appendNumber(1)">1</div>
+            <div class="button" onclick="appendNumber(2)">2</div>
+            <div class="button" onclick="appendNumber(3)">3</div>
+            <div class="button" onclick="appendOperator('+')">+</div>
+            <div class="button" onclick="appendOperator('-')">-</div>
+            <div class="button" onclick="appendNumber(4)">4</div>
+            <div class="button" onclick="appendNumber(5)">5</div>
+            <div class="button" onclick="appendNumber(6)">6</div>
+            <div class="button" onclick="appendOperator('*')">*</div>
+            <div class="button" onclick="appendOperator('/')">/</div>
+            <div class="button" onclick="appendNumber(7)">7</div>
+            <div class="button" onclick="appendNumber(8)">8</div>
+            <div class="button" onclick="appendNumber(9)">9</div>
+            <div class="button" onclick="calculateResult()">=</div>
+            <div class="button" onclick="appendNumber(0)">0</div>
+            <div class="button" onclick="clearDisplay()">C</div>
+        </div>
+    </div>
+</div>
 @endforeach
 @endsection
 
+
+
 @section('scripts')
+<script>
+    // Get the modal
+    var modal = document.getElementById('calculatorModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById('openCalculatorBtn');
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName('close')[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = 'block';
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Calculator functions
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+
+    function appendNumber(number) {
+        document.getElementById('display').value += number;
+    }
+
+    function appendOperator(operator) {
+        document.getElementById('display').value += ' ' + operator + ' ';
+    }
+
+    function calculateResult() {
+        let display = document.getElementById('display');
+        display.value = eval(display.value);
+    }
+</script>
+
 <script>
     function submitForms() {
         document.getElementById("updateForms").submit();

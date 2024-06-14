@@ -24,44 +24,52 @@
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">End Date</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">{{$project->end_date}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">{{$project->end_date}}
+                @if($project->ext_time != null)  
+                    <span class="badge badge-danger">{{$project->ext_time}} Months Extended</span>
+                @endif
+            </td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Total Estimated Cost</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->ecost}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->ecost}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Previous Expenditure</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->pexpenditure}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->pexpenditure}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Allocation(2024)</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->allocation}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->allocation}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Expenditure(2024)</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->expenditure}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->expenditure}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Commitment</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->commitment}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->commitment}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">On Progress</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->progress}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->progress}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Remaining Funds (Total)</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->remaining_total}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->total_re_funds}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700;width:500px">Remaining Funds (2024)</td>
-            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->remaining_current_year}}</td>
+            <td style="color: white; font-size: 20px; font-weight: 700;width:500px">Rs. {{$project->current_re_funds}}.00</td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700; width: 500px;">Status at the End of Last Week</td>
             <td rowspan="2" style="color: white; font-size: 20px; font-weight: 700; width: 500px; white-space: normal;text-align:justify">
-                {{$project->status_lastweek}}
+                @if($project->status_lastweek == null)
+                    N/A
+                @else
+                   {{$project->status_lastweek}}
+                @endif
             </td>
         </tr>
         <tr>
@@ -70,19 +78,31 @@
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700; width: 500px;">Next Week Plan</td>
             <td style="color: white; font-size: 20px; font-weight: 700; width: 500px; white-space: normal;text-align:justify">
-                {{$project->next_week}}
+                @if($project->next_week == null)
+                    N/A
+                @else
+                   {{$project->next_week}}
+                @endif
             </td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700; width: 500px;">Remaining Work to be Completed</td>
             <td style="color: white; font-size: 20px; font-weight: 700; width: 500px; white-space: normal;text-align:justify">
-                {{$project->remaining_work}}
+                @if($project->remaining_work == null)
+                    N/A
+                @else
+                   {{$project->remaining_work}}
+                @endif
             </td>
         </tr>
         <tr>
             <td style="color: rgb(0, 0, 0); border-right: 2px solid white; font-size: 20px; font-weight: 700; width: 500px;">Issues / Problems / Constraints </td>
             <td style="color: white; font-size: 20px; font-weight: 700; width: 500px; white-space: normal;text-align:justify">
-                {{$project->issues}}
+                @if($project->issues == null)
+                    N/A
+                @else
+                   {{$project->issues}}
+                @endif
             </td>
         </tr>
     </tbody>

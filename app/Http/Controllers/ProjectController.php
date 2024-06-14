@@ -53,6 +53,8 @@ class ProjectController extends Controller
             $project->next_week = $request->input('next_week');
             $project->remaining_work = $request->input('remaining_work');
             $project->issues = $request->input('issues');
+            $project->total_re_funds = $project->ecost - ($project->pexpenditure + $project->commitment + $project->progress) ;
+            $project->current_re_funds = $project->allocation -  ($project->expenditure + $project->commitment + $project->progress);
             
             if ($project->save()) {
                 return redirect('/projectform')->with('success', "Successfully Inserted!");
@@ -91,7 +93,6 @@ class ProjectController extends Controller
             'allocation' => 'numeric|min:0',
             'expenditure' => 'numeric|min:0',
             'commitment' => 'numeric|min:0',
-            
             'status_lastweek' => 'string',
             'next_week' => 'string',
             'remaining_work' => 'string',
@@ -108,6 +109,7 @@ class ProjectController extends Controller
             $project->rc = $request->input('rc');
             $project->start_date = $request->input('start_date');
             $project->end_date = $request->input('end_date');
+            $project->ext_time = $request->input('ext_time');
             $project->ecost = $request->input('ecost');
             $project->pexpenditure = $request->input('pexpenditure');
             $project->allocation = $request->input('allocation');
@@ -115,10 +117,8 @@ class ProjectController extends Controller
             $project->commitment = $request->input('commitment');
             $project->progress = $request->input('progress');
 
-            $remaining_funds = $project->ecost - ($project->pexpenditure+$project->commitment+$project->progress);
-            $remaining_current_year = $project->allocation;
-            $project->remaining_total = $remaining_funds;
-            $project->remaining_current_year = $remaining_current_year - $project->expenditure;
+            $project->total_re_funds = $project->ecost - ($project->pexpenditure + $project->commitment + $project->progress) ;
+            $project->current_re_funds = $project->allocation -  ($project->expenditure + $project->commitment + $project->progress);
             $project->status_lastweek = $request->input('status_lastweek');
             $project->next_week = $request->input('next_week');
             $project->remaining_work = $request->input('remaining_work');

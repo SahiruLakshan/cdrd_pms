@@ -38,7 +38,11 @@
             </form>
         </div>
     </div>
+</div><hr style="height:2px;background-color:rgb(255, 255, 255)">
+<div style="padding-left: 25px;margin-top:20px">
+    <a href="/timeline/{{$project->wing}}" class="btn btn-info btn-sm">Overall <br>Timeline</a>&nbsp;&nbsp;<a href="/summary/{{$project->wing}}" class="btn btn-primary btn-sm">Financial <br>Statement</a>
 </div>
+
 <table class="table mt-3 text-center" style="padding-left: 20px;padding-right:20px">
     <thead class="table-dark">
         <tr>
@@ -90,9 +94,13 @@
                 <td>{{ $project->no }}</td>
                 <td>{{ $project->rc }}</td>
                 <td style="max-width: 500px;">{{ $project->pname }}</td>
-                <td>{{ $status }}</td>
+                <td>{{ $status }} </td>
                 <td style="max-width: 250px;">
                     {{ $remaining_time_text }}
+                    <br>
+                    @if($project->ext_time != null)  
+                       <span class="badge badge-danger" style="color: black">{{$project->ext_time}} Months Extended</span>
+                    @endif
                 </td>
                 <td style="max-width: 500px;">
                     <a href="/financial/{{$project->no}}" class="btn btn-danger btn-sm">Financial <br>Statement</a>

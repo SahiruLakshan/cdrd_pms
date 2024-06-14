@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function projects(Request $request){
         $wing = $request->input('wing');
         $projects = Project::where('wing', $wing)->get();
+        $project = Project::where('wing', $wing)->first();
         $remaining_time_list = [];
     
         foreach ($projects as $project) {
@@ -28,7 +29,7 @@ class HomeController extends Controller
                 'days' => $diff->d 
             ];
         }
-        return view('User.projectview', compact('projects', 'wing', 'remaining_time_list'));
+        return view('User.projectview', compact('projects', 'wing', 'remaining_time_list','project'));
     }
     
 

@@ -25,6 +25,8 @@ class TaskController extends Controller
         $task->weight = $request->input('weight');
         $task->completion_lastweek = $request->input('completion_lastweek');
         $task->completion_presentweek = $request->input('completion_presentweek');
+        $final = ($task->weight/100) * $task->completion_presentweek;
+        $task->final_percentage = $final;
 
         $task->save();
         
