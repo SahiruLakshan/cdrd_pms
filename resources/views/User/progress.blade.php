@@ -50,7 +50,7 @@
 </table>
 
 <div class="mt-3 text-center">
-    <a href="/timeplan" style="color: white;padding-right:1160px"><i><- Back to Time Plan Page</i></a>
+    <a href="/timeplan/{{$project->no}}" style="color: white;padding-right:1160px"><i><- Back to Time Plan Page</i></a>
     <a href="/timeline/{{$project->wing}}" class="btn btn-secondary"><i>Overall Timeline</i></a>
 </div>
 @endsection

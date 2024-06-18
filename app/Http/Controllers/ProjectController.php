@@ -9,11 +9,18 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
-    public function view(){
-        return view('Admin.project');
+    public function view()
+    {
+        try {
+            return view('Admin.project');
+        } catch (\Exception $e) {
+            // Handle the exception or log the error
+            return response()->json(['error' => 'An error occurred while rendering the view.'], 500);
+        }
     }
 
-    public function insertproject(Request $request){
+    public function insertproject(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'pname' => 'required|max:10000',
             'start_date' => 'required|date',
@@ -29,11 +36,12 @@ class ProjectController extends Controller
             'remaining_work' => 'string',
             'issues' => 'string',
         ]);
-    
+
         if ($validator->fails()) {
-            return redirect('/projectform')->with('error', "Something went wrong.Check input details!");            
+            return redirect('/projectform')
+                ->with('error', "Something went wrong. Check input details!");
         }
-    
+
         try {
             $project = new Project();
             $project->no = $request->input('no');
@@ -53,16 +61,18 @@ class ProjectController extends Controller
             $project->next_week = $request->input('next_week');
             $project->remaining_work = $request->input('remaining_work');
             $project->issues = $request->input('issues');
-            $project->total_re_funds = $project->ecost - ($project->pexpenditure + $project->commitment + $project->progress) ;
-            $project->current_re_funds = $project->allocation -  ($project->expenditure + $project->commitment + $project->progress);
-            
+            $project->total_re_funds = $project->ecost - ($project->pexpenditure + $project->commitment + $project->progress);
+            $project->current_re_funds = $project->allocation - ($project->expenditure + $project->commitment + $project->progress);
+
             if ($project->save()) {
-                return redirect('/projectform')->with('success', "Successfully Inserted!");
+                return redirect('/projectform')
+                    ->with('success', "Successfully Inserted!");
             } else {
                 throw new \Exception("Error occurred while inserting project!");
             }
         } catch (\Exception $e) {
-            return redirect('/projectform')->with('error', $e->getMessage());
+            return redirect('/projectform')
+                ->with('error', $e->getMessage());
         }
     }
 

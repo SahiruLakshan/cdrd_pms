@@ -19,7 +19,7 @@
         @php
             $x=0;
         @endphp
-        @foreach ($projects as $project)
+        @foreach ($filteredProjects as $project)
             @php
                 $x++;
             @endphp

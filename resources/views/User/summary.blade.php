@@ -95,9 +95,8 @@
                     <div class="progress-container">
                         <span style="color:white">Work Progress: </span>&nbsp;&nbsp;
                         <progress value="{{ $project->tasks_sum }}" max="100"></progress>
-                        <span class="progress-text" style="font-size: 12px">{{ number_format($project->tasks_sum, 2) }}% Completed</span>
+                        <span class="progress-text" style="font-size: 12px">{{ number_format($project->tasks_sum, 1) }}% Completed</span>
                     </div><br>
-
 
                     <div class="progress-container">
                         <span style="color:white">Time Line: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -118,7 +117,7 @@
                           </div>
                           <div class="col">
                             @if (Carbon::parse($project->end_date)->lessThan(Carbon::today()))
-                              <span style="color:white;font-size: 12px"></span>
+                              <span style="color:white;font-size: 12px">No Time Remaining</span>
                             @else
                               <span style="color:white;font-size: 12px">{{ round($project->remaining_months) }}  Months Remaining</span>
                             @endif
@@ -128,8 +127,8 @@
 
                     @php
                       $percentage = 100 - ($project->total_re_funds / $project->ecost) * 100;
-
                     @endphp
+                    
                     <div class="progress-container">
                         <span style="color:white">Financial Status:</span>&nbsp;
                         <progress value="{{ $project->total_re_funds }}" max="{{$project->ecost}}"></progress>
