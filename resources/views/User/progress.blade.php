@@ -37,9 +37,9 @@
         
         <tr>
             <td colspan="2" style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>Total Percentage:</i></td>
-            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>{{$tot_weight}}%</i></td>
+            <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center;font-size:20px">{{$tot_weight}}%</td>
             <td colspan="2" style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;white-space: normal;text-align:center"><i>Total Progress Percentage:<br>Up to {{ \Carbon\Carbon::now()->format('Y-m-d') }}</i></td>
-            <td style="color: rgb(255, 255, 255);font-weight: 700;white-space: normal;text-align:center"><i>{{$tot_final}}%</i></td>
+            <td style="color: rgb(255, 255, 255);font-weight: 700;white-space: normal;text-align:center;font-size:20px">{{ number_format($tot_final, 2) }}%</td>
         </tr>
         
         {{-- <tr>

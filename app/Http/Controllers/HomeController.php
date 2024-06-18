@@ -15,7 +15,8 @@ class HomeController extends Controller
     public function projects(Request $request){
         $wing = $request->input('wing');
         $projects = Project::where('wing', $wing)->get();
-        $project = Project::where('wing', $wing)->first();
+        $uniqueWings = $projects->pluck('wing')->unique();
+        
         $remaining_time_list = [];
     
         foreach ($projects as $project) {
@@ -29,7 +30,8 @@ class HomeController extends Controller
                 'days' => $diff->d 
             ];
         }
-        return view('User.projectview', compact('projects', 'wing', 'remaining_time_list','project'));
+
+        return view('User.projectview', compact('projects', 'wing', 'remaining_time_list','uniqueWings'));
     }
     
 
@@ -70,9 +72,9 @@ class HomeController extends Controller
             // Calculate completed and remaining months
             $startDate = \Carbon\Carbon::parse($project->start_date);
             $endDate = \Carbon\Carbon::parse($project->end_date);
-            $totalMonths = $startDate->diffInMonths($endDate) + 1; // +1 to include the end month
-            $completedMonths = $startDate->diffInMonths($now) + 1; // +1 to include the current month
-            $remainingMonths = max(0, $totalMonths - $completedMonths);
+            $totalMonths = $startDate->diffInMonths($endDate); 
+            $completedMonths = $startDate->diffInMonths($now);
+            $remainingMonths = max(0, $totalMonths - $completedMonths) + 1;
     
             // Add these calculations to the project object
             $project->total_months = $totalMonths;

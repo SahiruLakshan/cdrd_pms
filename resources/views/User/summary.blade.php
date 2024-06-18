@@ -10,19 +10,19 @@
     }
     
     progress::-webkit-progress-bar {
-      background-color: #eee;
+      background-color: #ffffff;
     }
     
     progress::-webkit-progress-value {
-      background-color: #4caf50; /* Change this color to your desired color */
+      background-color: #00ff08; /* Change this color to your desired color */
     }
     
     progress::-moz-progress-bar {
-      background-color: #4caf50; /* Change this color to your desired color */
+      background-color: #00ff08; /* Change this color to your desired color */
     }
     
     progress[value]::-ms-fill {
-      background-color: #4caf50; /* Change this color to your desired color */
+      background-color: #00ff08; /* Change this color to your desired color */
     }
 
     .progress-container {
@@ -76,7 +76,6 @@
             @php
                 $x++;
                 $cost = $project->ecost/1000000;
-             
             @endphp
             <tr>
                 <td style="color: rgb(255, 255, 255); border-right: 2px solid white;font-weight: 700;width:100px;white-space: normal;text-align:justify">{{$x}}</td>
@@ -85,14 +84,18 @@
                   {{$project->pname}}<br><br>
                   <span style="font-size: 13px">Start Date: {{$project->start_date}}</span><br>
                   <span style="font-size: 13px">End Date: {{$project->end_date}}</span><br>
-                  <span style="font-size: 13px">Project Time: {{ round($project->total_months) }} Months</span><br><br>
+                  <span style="font-size: 13px">Project Time: {{ round($project->total_months) }} Months
+                    @if($project->ext_time != null)  
+                      <span class="badge badge-danger">( {{$project->ext_time}} Months Extended )</span>
+                    @endif
+                  </span><br><br>
                   <span style="font-size: 13px">Total Project Cost: {{$cost}} Mn</span>
                 </td>
                 <td style="width:800px">  
                     <div class="progress-container">
                         <span style="color:white">Work Progress: </span>&nbsp;&nbsp;
                         <progress value="{{ $project->tasks_sum }}" max="100"></progress>
-                        <span class="progress-text" style="font-size: 12px">{{ $project->tasks_sum }}% Completed</span>
+                        <span class="progress-text" style="font-size: 12px">{{ number_format($project->tasks_sum, 2) }}% Completed</span>
                     </div><br>
 
 
@@ -114,17 +117,22 @@
                             <div style="width: 10px; height: 10px; background-color: white;margin-left:100px "></div>
                           </div>
                           <div class="col">
-                            <span style="color:white;font-size: 12px">{{ round($project->remaining_months) }}  Months Remaining</span>
+                            @if (Carbon::parse($project->end_date)->lessThan(Carbon::today()))
+                              <span style="color:white;font-size: 12px"></span>
+                            @else
+                              <span style="color:white;font-size: 12px">{{ round($project->remaining_months) }}  Months Remaining</span>
+                            @endif
                           </div>
                         </div>
                     </div><br><br>
 
                     @php
-                      $percentage = ($project->remaining_total  / $project->ecost )*100
+                      $percentage = 100 - ($project->total_re_funds / $project->ecost) * 100;
+
                     @endphp
                     <div class="progress-container">
                         <span style="color:white">Financial Status:</span>&nbsp;
-                        <progress value="{{ $project->remaining_total }}" max="{{$project->ecost}}"></progress>
+                        <progress value="{{ $project->total_re_funds }}" max="{{$project->ecost}}"></progress>
                         <span class="progress-text" style="font-size: 12px">{{ $percentage }}% Expenditure</span>
                     </div>
                 </td>

@@ -39,9 +39,13 @@
         </div>
     </div>
 </div><hr style="height:2px;background-color:rgb(255, 255, 255)">
-<div style="padding-left: 25px;margin-top:20px">
-    <a href="/timeline/{{$project->wing}}" class="btn btn-info btn-sm">Overall <br>Timeline</a>&nbsp;&nbsp;<a href="/summary/{{$project->wing}}" class="btn btn-primary btn-sm">Financial <br>Statement</a>
-</div>
+
+@foreach ($uniqueWings as $wing)
+    <div style="padding-left: 25px;margin-top:20px">
+        <a href="/timeline/{{$wing}}" class="btn btn-info btn-sm">Overall <br>Timeline</a>&nbsp;&nbsp;<a href="/summary/{{$wing}}" class="btn btn-primary btn-sm">Overall <br>Summary</a>
+    </div>
+@endforeach
+
 
 <table class="table mt-3 text-center" style="padding-left: 20px;padding-right:20px">
     <thead class="table-dark">
