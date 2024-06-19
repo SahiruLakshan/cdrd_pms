@@ -8,7 +8,7 @@
           <div class="card-header pb-0">
             <div class="row">
               <div class="col-8">
-                  <h6>Projects table - Wing Name</h6>
+                  <h6>Projects table - {{ Auth::user()->wing }}</h6>
               </div>
               <div class="col-4">
                   <form method="post" action="/searchProject" class="d-flex align-items-center justify-content-end">

@@ -6,6 +6,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -33,8 +34,6 @@ class ProjectController extends Controller
             'progress' => 'numeric|min:0',
             'status_lastweek' => 'string',
             'next_week' => 'string',
-            'remaining_work' => 'string',
-            'issues' => 'string',
         ]);
 
         if ($validator->fails()) {
@@ -77,7 +76,7 @@ class ProjectController extends Controller
     }
 
     public function projects(){
-        $project = Project::all();
+        $project = Project::where('wing',Auth::user()->wing)->get();
         return view('Admin.projectview',compact('project'));
     }
 

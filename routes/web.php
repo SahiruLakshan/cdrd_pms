@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -25,6 +26,8 @@ Route::middleware([
     Route::post('/savetask', [TaskController::class, 'savetask']);
     Route::put('/update-project/{id}', [ProjectController::class, 'updateproject']);
     Route::put('/update-task/{id}', [TaskController::class, 'updatetask']);
+
+    // Route::get('/logout', [UserController::class, 'logout']);
 });
 
 Route::get('/', [HomeController::class, 'home']);

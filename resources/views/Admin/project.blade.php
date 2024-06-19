@@ -42,26 +42,9 @@
            </div>
            <div class="row">
                <div class="col-5">
-                   <label for="">Select Wing</label>
-                   <select class="form-select" name="wing">
-                       <option hidden>Select Wing</option>
-                       <option value="Radio & Electronic Wing">Radio & Electronic Wing</option>
-                       <option value="Telecommunication Wing">Telecommunication Wing</option>
-                       <option value="Electrical & Mechanical Wing">Electrical & Mechanical Wing
-                       </option>
-                       <option value="IT & GIS Wing">IT & GIS Wing</option>
-                       <option value="Armament & Ballistic Wing">Armament & Ballistic Wing</option>
-                       <option value="Missile Wing">Missile Wing</option>
-                       <option value="NBC Wing">NBC Wing</option>
-                       <option value="Marine Wing">Marine Wing</option>
-                       <option value="Nano and Modern Technology Wing">Nano and Modern Technology Wing
-                       </option>
-                       <option value="Sattelite & Surveillance Wing">Sattelite & Surveillance Wing
-                       </option>
-                       <option value="Cyber Security Wing">Cyber Security Wing</option>
-                       <option value="Ammo & Explosive Wing">Ammo & Explosive Wing</option>
-                       <option value="Aeronautical Wing">Aeronautical Wing</option>
-                   </select>
+                    <div class="mb-2">
+                        <label>Wing:</label><input type="text" name="wing" value="{{ Auth::User()->wing }}" class="form-control" placeholder="Project_Name">
+                    </div>
                </div>
                <div class="col-6">
                    <div class="mb-2">
