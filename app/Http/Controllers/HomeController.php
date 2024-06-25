@@ -41,12 +41,21 @@ class HomeController extends Controller
     public function financial($no)
     {
         $project = Project::where('no', $no)->first();
+
+        if (!$project) {
+            abort(404);
+        }
+
         return view('User.financial', compact('project'));
     }
 
     public function timeplan($no)
     {
         $project = Project::where('no', $no)->first();
+        if (!$project) {
+            abort(404);
+        }
+
         $tasks = Task::where('no', $no)->get();
         return view('User.timeplan', compact('tasks', 'project'));
     }
@@ -54,9 +63,14 @@ class HomeController extends Controller
     public function progress($no)
     {
         $project = Project::where('no', $no)->first();
+        if (!$project) {
+            abort(404);
+        }
+
         $tasks = Task::where('no', $no)->get();
         $tot_weight = Task::where('no', $no)->sum('weight');
         $tot_final = Task::where('no', $no)->sum('final_percentage');
+
         return view('User.progress', compact('project', 'tasks', 'tot_weight', 'tot_final'));
     }
 
