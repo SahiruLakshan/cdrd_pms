@@ -25,7 +25,7 @@
 
       @yield('content')
    
-@include('Admin.footer')
+{{-- @include('Admin.footer') --}}
 
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
@@ -206,16 +206,16 @@
 </script> --}}
 
 @if (session('success'))
-        <script>
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "{{ session('success') }}",
-              showConfirmButton: false,
-              timer: 1500
-            });
-        </script>
-    @endif
+      <script>
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+          });
+      </script>
+@endif
 
 @if (session('warn'))
     <script>
@@ -224,7 +224,7 @@
           icon: "warning",
           title: "{{ session('warn') }}",
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
     </script>
 @endif

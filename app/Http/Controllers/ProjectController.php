@@ -22,24 +22,24 @@ class ProjectController extends Controller
 
     public function insertproject(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'pname' => 'required|max:10000',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-            'ecost' => 'numeric|min:0',
-            'pexpenditure' => 'numeric|min:0',
-            'allocation' => 'numeric|min:0',
-            'expenditure' => 'numeric|min:0',
-            'commitment' => 'numeric|min:0',
-            'progress' => 'numeric|min:0',
-            'status_lastweek' => 'string',
-            'next_week' => 'string',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'pname' => 'required|max:10000',
+        //     'start_date' => 'required|date',
+        //     'end_date' => 'required|date|after:start_date',
+        //     'ecost' => 'numeric|min:0',
+        //     'pexpenditure' => 'numeric|min:0',
+        //     'allocation' => 'numeric|min:0',
+        //     'expenditure' => 'numeric|min:0',
+        //     'commitment' => 'numeric|min:0',
+        //     'progress' => 'numeric|min:0',
+        //     'status_lastweek' => 'string',
+        //     'next_week' => 'string',
+        // ]);
 
-        if ($validator->fails()) {
-            return redirect('/projectform')
-                ->with('error', "Something went wrong. Check input details!");
-        }
+        // if ($validator->fails()) {
+        //     return redirect('/projectform')
+        //         ->with('error', "Something went wrong. Check input details!");
+        // }
 
         try {
             $project = new Project();
@@ -94,23 +94,23 @@ class ProjectController extends Controller
     }
 
     public function updateproject(Request $request,$id){
-        $validator = Validator::make($request->all(), [
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-            'ecost' => 'numeric|min:0',
-            'pexpenditure' => 'numeric|min:0',
-            'allocation' => 'numeric|min:0',
-            'expenditure' => 'numeric|min:0',
-            'commitment' => 'numeric|min:0',
-            'status_lastweek' => 'string',
-            'next_week' => 'string',
-            'remaining_work' => 'string',
-            'issues' => 'string',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'start_date' => 'required|date',
+        //     'end_date' => 'required|date|after:start_date',
+        //     'ecost' => 'numeric|min:0',
+        //     'pexpenditure' => 'numeric|min:0',
+        //     'allocation' => 'numeric|min:0',
+        //     'expenditure' => 'numeric|min:0',
+        //     'commitment' => 'numeric|min:0',
+        //     'status_lastweek' => 'string',
+        //     'next_week' => 'string',
+        //     'remaining_work' => 'string',
+        //     'issues' => 'string',
+        // ]);
     
-        if ($validator->fails()) {
-            return redirect('/projects')->with('error', "Something went wrong.Check input details!");            
-        }
+        // if ($validator->fails()) {
+        //     return redirect('/projects')->with('error', "Something went wrong.Check input details!");            
+        // }
     
         try {
             $project = Project::find($id);
@@ -144,4 +144,21 @@ class ProjectController extends Controller
     
 
     }
+
+    public function searchproject(Request $request)
+    {
+        $project_name = $request->input('project_name');
+
+        $project = Project::where('pname', 'LIKE', '%' . $project_name . '%')
+            ->where('wing', Auth::user()->wing)
+            ->get();
+        
+        if ($project->isEmpty()) {
+            return redirect('/projects')->with('error', "No project found with the name: $project_name");
+        }
+
+        return view('Admin.projectview', compact('project'));
+    }
+
+    
 }

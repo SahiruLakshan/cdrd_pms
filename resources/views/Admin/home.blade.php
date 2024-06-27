@@ -1,7 +1,14 @@
 @extends('adminfront')
 
 @section('content')
-<div class="fixed-plugin">
+<main class="main-content position-relative border-radius-lg">
+  <div class="col-md-11 text-center" style="margin-top: 8px">
+      <img src="assets/img/logo.png" alt="CDRD Logo">
+      <h2 class="card-title text-center" style="text-transform: uppercase;">CENTER FOR DEFENCE RESEARCH & DEVELOPMENT</h2>
+      <h3 class="card-title text-center" style="text-transform: uppercase;"><b>PMS ADMIN DASHBOARD</b></h3>
+  </div>
+</main>
+{{-- <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="fa fa-cog py-2"> </i>
     </a>
@@ -66,5 +73,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 @endsection

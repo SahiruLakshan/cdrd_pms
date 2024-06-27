@@ -16,7 +16,7 @@
                                         {{ csrf_field() }}
                                         <div class="input-group">
                                             <input type="text" class="form-control" name="project_name"
-                                                style="height: 38px;" placeholder="Search here...">
+                                                style="height: 38px;" placeholder="Search here..." required>
                                             <button type="submit" class="btn btn-primary"
                                                 style="height: 38px;">Search</button>
                                         </div>

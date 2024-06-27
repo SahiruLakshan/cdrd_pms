@@ -18,6 +18,11 @@ class HomeController extends Controller
     {
         $wing = $request->input('wing');
         $projects = Project::where('wing', $wing)->get();
+
+        if ($projects->isEmpty()) {
+            abort(404);
+        }
+
         $uniqueWings = $projects->pluck('wing')->unique();
 
         $remaining_time_list = [];
@@ -117,5 +122,35 @@ class HomeController extends Controller
             // $project->remaining_cost = $project->pexpenditure;
         }
         return view('User.summary', compact('projects', 'wing_name'));
+    }
+
+    public function search(Request $request)
+    {
+        $project_name = $request->input('name');
+        $wing = $request->input('wing');
+
+        $projects = Project::where('pname', 'LIKE', '%' . $project_name . '%')->get();
+        
+        if ($projects->isEmpty()) {
+            return redirect('/projects')->with('error', "No project found with the name: $project_name");
+        }
+
+        $uniqueWings = $projects->pluck('wing')->unique();
+
+        $remaining_time_list = [];
+
+        foreach ($projects as $project) {
+            $end_date = Carbon::parse($project->end_date);
+            $now = Carbon::now();
+            $diff = $end_date->diff($now);
+
+            $remaining_time_list[$project->id] = [
+                'years' => $diff->y,
+                'months' => $diff->m,
+                'days' => $diff->d
+            ];
+        }
+
+        return view('User.projectview', compact('projects', 'wing', 'remaining_time_list', 'uniqueWings'));
     }
 }

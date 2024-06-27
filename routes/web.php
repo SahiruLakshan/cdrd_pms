@@ -10,9 +10,6 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::middleware(['auth',AdminMiddleware::class])->group(function () {
     Route::get('/dashboard', function () {
@@ -26,6 +23,7 @@ Route::middleware(['auth',AdminMiddleware::class])->group(function () {
     Route::post('/savetask', [TaskController::class, 'savetask']);
     Route::put('/update-project/{id}', [ProjectController::class, 'updateproject']);
     Route::put('/update-task/{id}', [TaskController::class, 'updatetask']);
+    Route::post('/searchProject',[ProjectController::class, 'searchproject']);
 });
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -35,6 +33,7 @@ Route::get('/timeplan/{no}', [HomeController::class, 'timeplan']);
 Route::get('/progress/{no}', [HomeController::class, 'progress']);
 Route::get('/timeline/{wing}', [HomeController::class, 'timeline']);
 Route::get('/summary/{wing}', [HomeController::class, 'summary']);
+Route::post('/search',[HomeController::class, 'search']);
 
 Route::get('register', [RegisteredUserController::class, 'create'])
 ->name('register');
