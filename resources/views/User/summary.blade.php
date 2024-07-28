@@ -153,7 +153,8 @@
                         <div class="progress-container">
                             <span style="color:white"><b>Financial Status:</b></span>
                             <progress value="{{ $project->total_re_funds }}" max="{{ $project->ecost }}"></progress>
-                            <span class="progress-text" style="font-size: 12px">{{ $percentage }}% Expenditure</span>
+                            <span class="progress-text" style="font-size: 12px">{{ number_format($percentage, 2) }}% Expenditure</span>
+
                         </div>
                     </td>
                 </tr>

@@ -51,4 +51,12 @@ class TaskController extends Controller
         $task->update();
         return Redirect::route('update.project', ['no' => $no])->with('success', 'Tasks updated successfully.');
     }
+
+    public function deletetask($id){
+        $task = Task::find($id);
+        $no = $task->no;
+        $task->delete();
+        return Redirect::route('functions.project', ['no' => $no])->with('success', 'Tasks deleted successfully.');
+
+    }
 }

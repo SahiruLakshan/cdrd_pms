@@ -160,5 +160,8 @@ class ProjectController extends Controller
         return view('Admin.projectview', compact('project'));
     }
 
-    
-}
+    public function deleteproject($no){
+        $project = Project::where('no',$no)->delete();
+        return redirect('/projects')->with('success', 'Project deleted successfully.');
+    }
+} 

@@ -19,10 +19,7 @@ class HomeController extends Controller
         $wing = $request->input('wing');
         $projects = Project::where('wing', $wing)->get();
 
-        if ($projects->isEmpty()) {
-            abort(404);
-        }
-
+        
         $uniqueWings = $projects->pluck('wing')->unique();
 
         $remaining_time_list = [];
@@ -47,20 +44,13 @@ class HomeController extends Controller
     {
         $project = Project::where('no', $no)->first();
 
-        if (!$project) {
-            abort(404);
-        }
-
         return view('User.financial', compact('project'));
     }
 
     public function timeplan($no)
     {
         $project = Project::where('no', $no)->first();
-        if (!$project) {
-            abort(404);
-        }
-
+    
         $tasks = Task::where('no', $no)->get();
         return view('User.timeplan', compact('tasks', 'project'));
     }
@@ -68,9 +58,6 @@ class HomeController extends Controller
     public function progress($no)
     {
         $project = Project::where('no', $no)->first();
-        if (!$project) {
-            abort(404);
-        }
 
         $tasks = Task::where('no', $no)->get();
         $tot_weight = Task::where('no', $no)->sum('weight');

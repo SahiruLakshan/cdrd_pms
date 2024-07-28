@@ -14,6 +14,7 @@ use App\Http\Middleware\UserMiddleware;
 Route::middleware(['auth',AdminMiddleware::class])->group(function () {
     Route::get('/dashboard', function () {
         return view('Admin.home');
+        
     })->name('dashboard');
     Route::get('/projectform', [ProjectController::class, 'view']);
     Route::post('/insertproject', [ProjectController::class, 'insertproject']);
@@ -23,6 +24,8 @@ Route::middleware(['auth',AdminMiddleware::class])->group(function () {
     Route::post('/savetask', [TaskController::class, 'savetask']);
     Route::put('/update-project/{id}', [ProjectController::class, 'updateproject']);
     Route::put('/update-task/{id}', [TaskController::class, 'updatetask']);
+    Route::get('/delete-task{id}', [TaskController::class, 'deletetask']);
+    Route::get('/delete/project{no}', [ProjectController::class, 'deleteproject']);
     Route::post('/searchProject',[ProjectController::class, 'searchproject']);
 });
 

@@ -59,7 +59,7 @@
                                                         Section</a>
                                                     <a href="{{ url('updateform/project' . $project->no) }}"
                                                         class="btn btn-success btn-sm">Update Project Details</a>
-                                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    <a href="{{ url('delete/project' . $project->no) }}" class="btn btn-danger btn-sm">Delete</an>
                                                 </td>
                                             </tr>
                                         </tbody>
