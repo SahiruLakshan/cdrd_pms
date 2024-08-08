@@ -20,8 +20,6 @@ class AdminMiddleware
         }
         return redirect('/');
         
-
-        // If not admin, redirect or deny access
         
     }
 }

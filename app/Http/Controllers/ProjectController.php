@@ -89,8 +89,8 @@ class ProjectController extends Controller
     public function updateform($no){
         $project = Project::where('no',$no)->get();
         $task = Task::where('no',$no)->get();
-        $date = Task::select('updated_at')->first();
-        return view('Admin.updateform',compact('project','task','date'));
+        // $date = Task::where('no','updated_at')->first();
+        return view('Admin.updateform',compact('project','task'));
     }
 
     public function updateproject(Request $request,$id){

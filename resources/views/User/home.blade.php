@@ -48,6 +48,10 @@
     <div class="text-center mt-4">
         <button type="submit" class="btn btn-warning" style="border-radius: 30px;color:black;width:200px">Get Start</button>
     </div>
+
+    <div class="text-center mt-2">
+        <span><a href="/register" class="btn btn-sm btn-danger">Register</a>&nbsp;&nbsp;<a href="/login" class="btn btn-sm btn-success">Login</a></span>
+    </div>
 </form>
 
 <script>

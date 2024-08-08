@@ -209,8 +209,6 @@
               position: "top-end",
               icon: "success",
               title: "{{ session('success') }}",
-              showConfirmButton: false,
-              timer: 1500
             });
         </script>
     @endif
@@ -221,8 +219,6 @@
           position: "top-end",
           icon: "warning",
           title: "{{ session('warn') }}",
-          showConfirmButton: false,
-          timer: 1500
         });
     </script>
 @endif
@@ -233,8 +229,6 @@
           position: "top-end",
           icon: "error",
           title: "{{ session('error') }}",
-          showConfirmButton: false,
-          timer: 1500
         });
     </script>
 @endif

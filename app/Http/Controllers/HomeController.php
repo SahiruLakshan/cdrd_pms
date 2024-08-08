@@ -119,7 +119,7 @@ class HomeController extends Controller
         $projects = Project::where('pname', 'LIKE', '%' . $project_name . '%')->get();
         
         if ($projects->isEmpty()) {
-            return redirect('/projects')->with('error', "No project found with the name: $project_name");
+            return redirect()->back()->with('error', "No project found with the name: $project_name");
         }
 
         $uniqueWings = $projects->pluck('wing')->unique();

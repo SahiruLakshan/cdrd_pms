@@ -254,8 +254,7 @@
                 $total = 0;
             @endphp
 
-            <h4 class="mt-3" style="color: rgb(228, 106, 106)">Tasks Update - Up to
-                {{ \Carbon\Carbon::parse($date->updated_at)->format('Y-m-d') }}
+            <h4 class="mt-3" style="color: rgb(228, 106, 106)">Tasks Update
 
             </h4>
 

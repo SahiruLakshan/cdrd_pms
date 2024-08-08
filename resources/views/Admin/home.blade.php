@@ -5,7 +5,8 @@
   <div class="col-md-11 text-center" style="margin-top: 8px">
       <img src="assets/img/logo.png" alt="CDRD Logo">
       <h2 class="card-title text-center" style="text-transform: uppercase;">CENTER FOR DEFENCE RESEARCH & DEVELOPMENT</h2>
-      <h3 class="card-title text-center" style="text-transform: uppercase;"><b>PMS ADMIN DASHBOARD</b></h3>
+      <h3 class="card-title text-center" style="text-transform: uppercase;"><b>PMS ADMIN DASHBOARD</b></h3><br><br>
+      <h4 class="card-title text-center" style="text-transform: uppercase;"><b>{{ Auth::user()->wing }}</b></h4>
   </div>
 </main>
 {{-- <div class="fixed-plugin">
