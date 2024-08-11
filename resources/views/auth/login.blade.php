@@ -1,4 +1,12 @@
 <x-guest-layout>
+
+    <div class="flex flex-col items-center justify-center">
+        <img src="assets/img/logo.png" width="120px" alt="">
+    </div>
+    <div class="text-center">
+        <h1 style="color: white; font-size: 25px;">Project Management System</h1>
+        <h4 style="color: white; font-size: 15px;">Login</h4>
+    </div>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
