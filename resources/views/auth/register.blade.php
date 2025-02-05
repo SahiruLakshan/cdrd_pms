@@ -6,15 +6,15 @@
         <h1 style="color: white; font-size: 25px;">Project Management System</h1>
         <h4 style="color: white; font-size: 15px;">Register</h4>
     </div>
-    
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                autofocus autocomplete="name" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
@@ -30,9 +30,22 @@
             <x-input-label for="wing" :value="__('Wing')" />
             <select id="wing" name="wing" class="block mt-1 w-full" required>
                 <option value="">Select Wing</option>
-                <option value="IT & GIS Wing">IT & GIS Wing</option>
                 <option value="Radio & Electronic Wing">Radio & Electronic Wing</option>
-                <option value="C">Wing C</option>
+                <option value="Electrical & Mechanical Wing">Electrical & Mechanical Wing
+                </option>
+                <option value="IT & GIS Wing">IT & GIS Wing</option>
+                <option value="Armament & Ballistics Wing">Armament & Ballistics Wing
+                </option>
+                <option value="Missile Wing">Missile Wing</option>
+                <option value="Marine Wing">Marine Wing</option>
+                <option value="Nano and Modern Technology Wing">Nano and Modern Technology
+                    Wing
+                </option>
+                <option value="Sattelite & Surveillance Wing">Sattelite & Surveillance Wing
+                </option>
+                <option value="Cyber Security Wing">Cyber Security Wing</option>
+                <option value="Ammo & Explosive Wing">Ammo & Explosive Wing</option>
+                <option value="Aeronautical Wing">Aeronautical Wing</option>
             </select>
             <x-input-error :messages="$errors->get('wing')" class="mt-2" />
         </div>
